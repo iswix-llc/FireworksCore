@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<UseWPF>true</UseWPF>
+	  <UseWindowsForms>true</UseWindowsForms>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Services\SideBySideDiffModelVisualizer.cs" />
+    <Compile Remove="ViewModels\DifferencesViewModel.cs" />
+    <Compile Remove="Views\DifferencesView.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Views\DifferencesView.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Services\SideBySideDiffModelVisualizer.cs" />
+    <None Include="ViewModels\DifferencesViewModel.cs" />
+    <None Include="Views\DifferencesView.xaml" />
+    <None Include="Views\DifferencesView.xaml.cs" />
+  </ItemGroup>
+
+</Project>
