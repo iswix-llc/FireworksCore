@@ -5,10 +5,35 @@
     <TargetFramework>net7.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>TestApp.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Templates\TestApp\Example.xml" />
+    <None Remove="TestApp.bmp" />
+    <None Remove="TestApp.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Templates\TestApp\Example.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestApp.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestApp.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="TestApp.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FireworksFramework\FireworksFramework.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="IF &quot;%25SIGN_ISWIX%25&quot;==&quot;TRUE&quot; signtool sign /td SHA256 /tr http://timestamp.sectigo.com/ $(TargetPath)&#xD;&#xA;IF &quot;%25SIGN_ISWIX%25&quot;==&quot;TRUE&quot; signtool sign /fd SHA256 /tr http://timestamp.sectigo.com/?td=sha256 /td sha256 /as $(TargetPath)" />
+  </Target>
 
 </Project>

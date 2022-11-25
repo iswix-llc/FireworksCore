@@ -8,9 +8,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Forms;
+using FireworksFramework.Interfaces;
 
-namespace FireworksFramework
+namespace FireworksFramework.Managers
 {
     // This class reflects application directory looking for assemblies that contain designers
     public partial class PluginManager
@@ -49,9 +49,9 @@ namespace FireworksFramework
                 try
                 {
                     // found an assembly
-                    pluginAssemblies.Add(Assembly.LoadFile(file.FullName));
+                    pluginAssemblies.Add(AppDomain.CurrentDomain.Load(Assembly.LoadFrom(file.FullName).GetName()));
                 }
-                catch(Exception)
+                catch (Exception)
                 {
                     //EXE's and DLL's are not always managed assemblies.
                 }
@@ -62,22 +62,22 @@ namespace FireworksFramework
                 try
                 {
                     // Look for class(s) with our interface and construct them
-                    foreach (var type in pluginAssembly.GetTypes())
+                    Type[] types = pluginAssembly.GetTypes();
+                    foreach (var type in types)
                     {
                         Type iDesigner = type.GetInterface(typeof(IFireworksDesigner).FullName);
                         if (iDesigner != null)
                         {
-                            object instance = Activator.CreateInstance(type); // creates an object 
-                            IFireworksDesigner designer = (IFireworksDesigner)instance; // throws an exception
-                                                                                        // do stuff
+                            IFireworksDesigner designer = Activator.CreateInstance(type) as IFireworksDesigner;
+                            _designers.Add(designer.PluginType + designer.PluginOrder + Guid.NewGuid().ToString(), designer);
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //Something really bad must have happened. 
-                    MessageBox.Show("Fatal error reflecting plugins in assembly '" + pluginAssembly.FullName + "'.\r\n" +
-                        "The error message is:\r\n\r\n" + ex.Message);
+                    //MessageBox.Show("Fatal error reflecting plugins in assembly '" + pluginAssembly.FullName + "'.\r\n" +
+                    //    "The error message is:\r\n\r\n" + e.Message);
                 }
             }
         }

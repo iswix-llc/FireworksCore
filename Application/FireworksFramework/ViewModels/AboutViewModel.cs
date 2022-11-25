@@ -74,6 +74,6 @@ namespace FireworksFramework.ViewModels
         public string PluginLicense { get; set; }
     }
 
-   
+
 
 }

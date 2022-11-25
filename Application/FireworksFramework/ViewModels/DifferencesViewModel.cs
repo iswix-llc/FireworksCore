@@ -21,7 +21,7 @@ namespace FireworksFramework.ViewModels
 
         public string BeforeText { get; set; }
         public string AfterText { get; set; }
-        //public SideBySideDiffModel Diff { get; set; }
+        public SideBySideDiffModel Diff { get; set; }
 
         public DifferencesViewModel()
         {

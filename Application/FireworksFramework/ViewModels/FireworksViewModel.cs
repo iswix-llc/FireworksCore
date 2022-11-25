@@ -20,13 +20,14 @@ using FireworksFramework.Managers;
 using FireworksFramework.Properties;
 using FireworksFramework.Types;
 using FireworksFramework.Views;
+using DiffPlex;
 using static FireworksFramework.Types.Enums;
 
 namespace FireworksFramework.ViewModels
 {
     class FireworksViewModel : ObservableObject, IPublishable
     {
-        //Differences _differences;
+        Differences _differences;
         DocumentManager _documentManager = DocumentManager.DocumentManagerInstance;
         PluginManager _pluginManager = PluginManager.PluginManagerInstance;
 
@@ -101,7 +102,7 @@ namespace FireworksFramework.ViewModels
             Title = GetProductName();
             // Pass object reference to document manager
             _documentManager.Subscribe("mainform", this);
-            GridVisibility = Visibility.Hidden;  
+            GridVisibility = Visibility.Hidden;
         }
 
 
@@ -207,12 +208,12 @@ namespace FireworksFramework.ViewModels
             {
                 ActiveDesigner = null;
                 ActiveDesigners = null;
-                //if (_differences != null)
-                //{
-                //    _differences.Close();
-                //    _differences = null;
-                //}
-                //_documentManager.Close();
+                if (_differences != null)
+                {
+                    _differences.Close();
+                    _differences = null;
+                }
+                _documentManager.Close();
             }
         }
         public bool AskClose()
@@ -331,7 +332,7 @@ namespace FireworksFramework.ViewModels
                 }
                 else
                 {
-                    Title  = "Untitled - " + GetProductName();
+                    Title = "Untitled - " + GetProductName();
                 }
             }
             else
@@ -402,7 +403,7 @@ namespace FireworksFramework.ViewModels
         }
         public void DifferencesViewer()
         {
-            //_differences = new Differences();
+            _differences = new Differences();
             string executablePath = GetExecutableFilePath();
             Icon icon = Icon.ExtractAssociatedIcon(executablePath);
 
@@ -414,10 +415,10 @@ namespace FireworksFramework.ViewModels
                       hBitmap, IntPtr.Zero, System.Windows.Int32Rect.Empty,
                       BitmapSizeOptions.FromEmptyOptions());
 
-            //_differences.Icon = wpfBitmap;
+            _differences.Icon = wpfBitmap;
 
-            //_differences.Title = $"{GetProductName()} - Differences";
-            //_differences.Show();
+            _differences.Title = $"{GetProductName()} - Differences";
+            _differences.Show();
         }
 
         public void ShowAbout()

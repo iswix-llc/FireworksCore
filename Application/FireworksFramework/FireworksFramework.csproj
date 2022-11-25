@@ -6,24 +6,56 @@
     <Nullable>enable</Nullable>
 	<UseWPF>true</UseWPF>
 	  <UseWindowsForms>true</UseWindowsForms>
+	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Title>FireworksFrameworkCore</Title>
+	  <PackageId>FireworksFrameworkCore</PackageId>
+	  <Description>Reusable application framework for creating single page applications that graphically manage XML documents.</Description>
+	  <PackageProjectUrl>https://github.com/iswix-llc/fireworkscore</PackageProjectUrl>
+	  <PackageTags>wpf winforms c# plugins xml designers application framework</PackageTags>
+	  <PackageReleaseNotes>See GitHub</PackageReleaseNotes>
+	  <RepositoryUrl>ttps://github.com/iswix-llc/fireworkscore</RepositoryUrl>
+	  <Copyright>Copyright 2010-2022 ISWIX, LLC</Copyright>
+	  <Authors>iswix-llc</Authors>
+	  <Company>iswix-llc</Company>
 
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\SideBySideDiffModelVisualizer.cs" />
-    <Compile Remove="ViewModels\DifferencesViewModel.cs" />
-    <Compile Remove="Views\DifferencesView.xaml.cs" />
+    <None Remove="Fireworks.ico" />
+    <None Remove="Images\CheckGrammarHS.png" />
+    <None Remove="Images\DocumentHS.png" />
+    <None Remove="Images\Edit_UndoHS.png" />
+    <None Remove="Images\FillLeftHS.png" />
+    <None Remove="Images\NewDocumentHS.png" />
+    <None Remove="Images\openHS.png" />
+    <None Remove="Images\saveHS.png" />
+    <None Remove="License.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <Page Remove="Views\DifferencesView.xaml" />
+    <EmbeddedResource Include="Fireworks.ico" />
+    <Resource Include="Images\CheckGrammarHS.png" />
+    <Resource Include="Images\DocumentHS.png" />
+    <Resource Include="Images\Edit_UndoHS.png" />
+    <Resource Include="Images\FillLeftHS.png" />
+    <Resource Include="Images\NewDocumentHS.png" />
+    <Resource Include="Images\openHS.png" />
+    <Resource Include="Images\saveHS.png" />
+    <EmbeddedResource Include="License.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Services\SideBySideDiffModelVisualizer.cs" />
-    <None Include="ViewModels\DifferencesViewModel.cs" />
-    <None Include="Views\DifferencesView.xaml" />
-    <None Include="Views\DifferencesView.xaml.cs" />
+    <PackageReference Include="DiffPlex" Version="1.7.1" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\DifferencesView.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Page>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="IF &quot;%25SIGN_ISWIX%25&quot;==&quot;TRUE&quot; signtool sign /td SHA256 /tr http://timestamp.sectigo.com/ $(TargetPath)&#xD;&#xA;IF &quot;%25SIGN_ISWIX%25&quot;==&quot;TRUE&quot; signtool sign /fd SHA256 /tr http://timestamp.sectigo.com/?td=sha256 /td sha256 /as $(TargetPath)" />
+  </Target>
 
 </Project>

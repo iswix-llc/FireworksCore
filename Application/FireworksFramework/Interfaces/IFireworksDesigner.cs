@@ -6,7 +6,7 @@
 using System.Drawing;
 using static FireworksFramework.Types.Enums;
 
-namespace FireworksFramework
+namespace FireworksFramework.Interfaces
 {
     public interface IFireworksDesigner
     {
