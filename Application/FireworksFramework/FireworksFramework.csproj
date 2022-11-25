@@ -17,6 +17,7 @@
 	  <Copyright>Copyright 2010-2022 ISWIX, LLC</Copyright>
 	  <Authors>iswix-llc</Authors>
 	  <Company>iswix-llc</Company>
+	  <PackageLicenseFile>License.txt</PackageLicenseFile>
 
   </PropertyGroup>
 
@@ -29,7 +30,6 @@
     <None Remove="Images\NewDocumentHS.png" />
     <None Remove="Images\openHS.png" />
     <None Remove="Images\saveHS.png" />
-    <None Remove="License.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -46,6 +46,13 @@
 
   <ItemGroup>
     <PackageReference Include="DiffPlex" Version="1.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="License.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
