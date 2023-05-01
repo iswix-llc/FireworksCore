@@ -243,7 +243,7 @@ namespace FireworksFramework.ViewModels
             else
             {
                 canContinue = false;
-                MessageBox.Show("The document is not ready to be saved. Would you like to close without saving?", GetProductName(), MessageBoxButton.YesNoCancel);
+                MessageBoxResult result = MessageBox.Show("The document is not ready to be saved. Would you like to close without saving?", GetProductName(), MessageBoxButton.YesNoCancel);
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
