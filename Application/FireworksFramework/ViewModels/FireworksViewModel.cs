@@ -243,7 +243,21 @@ namespace FireworksFramework.ViewModels
             else
             {
                 canContinue = false;
-                MessageBox.Show("The document is not ready to be saved.");
+                MessageBox.Show("The document is not ready to be saved. Would you like to close without saving?", GetProductName(), MessageBoxButton.YesNoCancel);
+                switch (result)
+                {
+                    case MessageBoxResult.Yes:
+                        // do stuff
+                        break;
+                    case MessageBoxResult.No:
+                        canContinue = false;
+                        // do stuff
+                        break;
+                    case MessageBoxResult.Cancel:
+                        canContinue = false;
+                        // do stuff
+                        break;
+                }
             }
             return canContinue;
         }
