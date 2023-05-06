@@ -213,7 +213,9 @@ namespace FireworksFramework.ViewModels
                     _differences.Close();
                     _differences = null;
                 }
+                EnableClose = false;
                 EnableSave = false;
+                EnableSaveButton = false;
                 _documentManager.Close();
                
             }
@@ -221,18 +223,41 @@ namespace FireworksFramework.ViewModels
         public bool AskClose()
         {
             bool canContinue = true;
-            if (_documentManager.CanSave)
+            if (_documentManager.DocumentState != DocumentStates.Closed)
             {
-                if (_documentManager.DocumentState == DocumentStates.Dirty)
+                if (_documentManager.CanSave)
                 {
-                    MessageBoxResult result = MessageBox.Show("Would you like to save your changes?", GetProductName(), MessageBoxButton.YesNoCancel);
+                    if (_documentManager.DocumentState == DocumentStates.Dirty)
+                    {
+                        MessageBoxResult result = MessageBox.Show("Would you like to save your changes?", GetProductName(), MessageBoxButton.YesNoCancel);
+                        switch (result)
+                        {
+                            case MessageBoxResult.Yes:
+                                Save();
+                                // do stuff
+                                break;
+                            case MessageBoxResult.No:
+                                // do stuff
+                                break;
+                            case MessageBoxResult.Cancel:
+                                canContinue = false;
+                                // do stuff
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    canContinue = false;
+                    MessageBoxResult result = MessageBox.Show("The document is not ready to be saved. Would you like to close without saving?", GetProductName(), MessageBoxButton.YesNoCancel);
                     switch (result)
                     {
                         case MessageBoxResult.Yes:
-                            Save();
+                            canContinue = true;
                             // do stuff
                             break;
                         case MessageBoxResult.No:
+                            canContinue = false;
                             // do stuff
                             break;
                         case MessageBoxResult.Cancel:
@@ -240,26 +265,6 @@ namespace FireworksFramework.ViewModels
                             // do stuff
                             break;
                     }
-                }
-            }
-            else
-            {
-                canContinue = false;
-                MessageBoxResult result = MessageBox.Show("The document is not ready to be saved. Would you like to close without saving?", GetProductName(), MessageBoxButton.YesNoCancel);
-                switch (result)
-                {
-                    case MessageBoxResult.Yes:
-                        canContinue = true;
-                        // do stuff
-                        break;
-                    case MessageBoxResult.No:
-                        canContinue = false;
-                        // do stuff
-                        break;
-                    case MessageBoxResult.Cancel:
-                        canContinue = false;
-                        // do stuff
-                        break;
                 }
             }
             return canContinue;
