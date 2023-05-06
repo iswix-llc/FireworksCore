@@ -247,6 +247,7 @@ namespace FireworksFramework.ViewModels
                 switch (result)
                 {
                     case MessageBoxResult.Yes:
+                        canContinue = true;
                         // do stuff
                         break;
                     case MessageBoxResult.No:
