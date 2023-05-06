@@ -213,7 +213,9 @@ namespace FireworksFramework.ViewModels
                     _differences.Close();
                     _differences = null;
                 }
+                EnableSave = false;
                 _documentManager.Close();
+               
             }
         }
         public bool AskClose()

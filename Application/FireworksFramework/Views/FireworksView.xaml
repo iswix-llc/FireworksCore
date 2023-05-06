@@ -49,11 +49,11 @@
                     </MenuItem.Style>
                 </MenuItem>
                 <MenuItem Header="Save As" Click="SaveAs_Click" IsEnabled="{Binding EnableSave}" />
-                <MenuItem Header="_Close Document"  Click="Close_Click" IsEnabled="{Binding EnableDifferencesView}"/>
+                <MenuItem Header="_Close Document"  Click="Close_Click" IsEnabled="{Binding EnableClose}"/>
                 <MenuItem Header="_Exit" Click="Exit_Click" />
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Header="Launch Differences Window" Click="DifferencesViewer_Click" IsEnabled="{Binding EnableClose}" />
+                <MenuItem Header="Launch Differences Window" Click="DifferencesViewer_Click" IsEnabled="{Binding EnableDifferencesView}" />
                 <MenuItem Header="_About" Click="About_Click" />
             </MenuItem>
         </Menu>
